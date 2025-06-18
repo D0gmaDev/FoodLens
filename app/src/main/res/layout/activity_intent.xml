@@ -4,33 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.foodlens.MainActivity">
+    tools:context="fr.foodlens.ActivityIntent">
 
     <Button
-        android:id="@+id/launch_embedded"
+        android:id="@+id/btn_scan_barcode"
         android:layout_width="181dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="380dp"
         android:layout_marginStart="79dp"
         android:layout_marginTop="52dp"
-        android:text="launch embeded"
+        android:text="fill from barcode"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:enabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/launch_intent" />
+        app:layout_constraintTop_toBottomOf="@+id/scannedTextResult" />
 
-    <Button
-        android:id="@+id/launch_intent"
-        android:layout_width="181dp"
+    <TextView
+        android:id="@+id/scannedTextResult"
+        android:layout_width="483dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="380dp"
         android:layout_marginStart="79dp"
-        android:layout_marginTop="52dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:text="launch intent"
+        android:layout_marginTop="105dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:ems="10"
+        android:hint="scan to fill"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,20 +1,24 @@
 package fr.foodlens
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.widget.Button
+import com.vuzix.hud.actionmenu.ActionMenuActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ActionMenuActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val launchIntentBtn = findViewById<Button>(R.id.launch_intent)
+        launchIntentBtn.setOnClickListener {
+            startActivity(Intent(this, ActivityIntent::class.java))
+        }
+
+        val launchEmbeddedBtn = findViewById<Button>(R.id.launch_embedded)
+        launchEmbeddedBtn.setOnClickListener {
+            startActivity(Intent(this, EmbeddedActivity::class.java))
         }
     }
 }
