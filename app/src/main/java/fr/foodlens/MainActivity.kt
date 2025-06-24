@@ -12,6 +12,9 @@ import android.widget.Button
 import androidx.core.content.PackageManagerCompat.LOG_TAG
 import com.vuzix.hud.actionmenu.ActionMenuActivity
 import com.vuzix.sdk.speechrecognitionservice.VuzixSpeechClient
+import fr.foodlens.speech.BasicVocabulary
+import fr.foodlens.speech.GlobalVoiceCmdReceiver
+import fr.foodlens.speech.VoiceSpeechManager
 
 class MainActivity : ActionMenuActivity() {
     private lateinit var vuzixClient: VuzixSpeechClient;
@@ -32,11 +35,9 @@ class MainActivity : ActionMenuActivity() {
                 Log.d("Vuzix_Speech",e.toString())
             }
         }
-        vuzixClient.deleteAllPhrases()
-        vuzixClient.insertWakeWordPhrase(VoiceCmdReceiver.WAKE_UP)
-        vuzixClient.insertVoiceOffPhrase(VoiceCmdReceiver.SHUT_DOWN)
-        vuzixClient.insertPhrase(VoiceCmdReceiver.SCAN)
-        vuzixClient.insertPhrase(VoiceCmdReceiver.RECETTE)
+        VoiceSpeechManager.init(vuzixClient)
+        vuzixClient.insertPhrase(BasicVocabulary.SCAN)
+        vuzixClient.insertPhrase(BasicVocabulary.RECETTE)
 
         //On initialise l'actionneur
         voiceReceiver= VoiceCmdReceiver(this)
@@ -61,24 +62,6 @@ class MainActivity : ActionMenuActivity() {
  */
 class VoiceCmdReceiver(
     private val activity: MainActivity,
-) : BroadcastReceiver(){
-    companion object{
-        const val SCAN:String ="scan"
-        const val RECETTE:String="recette"
-        const val WAKE_UP="dis vuzix"
-        const val SHUT_DOWN="stop vuziw"
-    }
-    override fun onReceive(context: Context?, intent: Intent?) {
-        val phrase = intent?.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA)?:return
-        when (phrase.lowercase()){
-            SCAN->{
-                val intentToChange = Intent(activity.context, ActivityIntent::class.java)
-                activity.startActivity(intentToChange)
-            }
-            RECETTE->{
-                val intentToChange = Intent(activity.context, RecetteAcitivity::class.java)
-                activity.startActivity(intentToChange)
-            }
-        }
-    }
+) : GlobalVoiceCmdReceiver(activity){
+    //J'ajoute pas custom ici
 }
