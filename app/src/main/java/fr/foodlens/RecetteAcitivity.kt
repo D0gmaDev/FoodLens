@@ -1,6 +1,7 @@
 package fr.foodlens
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.IntentFilter
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -47,7 +48,14 @@ class RecetteAcitivity: ActionMenuActivity() {
     class VoiceCmdReceiver(
         private val activity: RecetteAcitivity,
     ) : GlobalVoiceCmdReceiver(activity){
-        //J'ajoute pas custom ici
+        override fun handleCustomPhrase(phrase: String, context: Context) {
+            when (phrase){
+                "generation recette"->{
+                    //implémenter la génération du prompt à partir de la récuparation des courses
+                }
+                else->{}//}
+            }
+        }
     }
 }
 

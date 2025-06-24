@@ -62,14 +62,6 @@ class MainActivity : ActionMenuActivity() {
     class VoiceCmdReceiver(
         private val activity: MainActivity,
     ) : GlobalVoiceCmdReceiver(activity){
-        override fun handleCustomPhrase(phrase: String, context: Context) {
-            when (phrase){
-                "generation recette"->{
-                    //implémenter la génération du prompt à partir de la récuparation des courses
-                }
-                else->{}//}
-            }
-        }
     }
 }
 
