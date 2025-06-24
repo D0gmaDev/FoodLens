@@ -45,7 +45,9 @@ object VoiceSpeechManager{
         voiceSpeechClient.deleteAllPhrases()
         voiceSpeechClient.insertWakeWordPhrase(BasicVocabulary.WAKE_UP)
         voiceSpeechClient.insertVoiceOffPhrase(BasicVocabulary.SHUT_DOWN)
-        voiceSpeechClient.insertVoiceOffPhrase(BasicVocabulary.HOME)
+        voiceSpeechClient.insertPhrase(BasicVocabulary.HOME)
+        voiceSpeechClient.insertPhrase(BasicVocabulary.GENERATION)
+        voiceSpeechClient.insertPhrase(BasicVocabulary.DE)
     }
 }
 
@@ -55,4 +57,6 @@ object BasicVocabulary{
     const val SCAN="scan"
     const val RECETTE="recette"
     const val HOME="home"
+    const val GENERATION="generation"
+    const val DE="de"
 }

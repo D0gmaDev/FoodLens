@@ -25,6 +25,7 @@ class MainActivity : ActionMenuActivity() {
         setContentView(R.layout.activity_main)
 
         //Initialisation du client et de l'actionneur
+        //On peut faire de même dans toutes les acttivités pour des tâches génériques
         try{
             vuzixClient = VuzixSpeechClient(this)
         }catch (e:RuntimeException){
@@ -54,14 +55,21 @@ class MainActivity : ActionMenuActivity() {
             startActivity(Intent(this, EmbeddedActivity::class.java))
         }
     }
+    /**
+     * Nous permet de traiter les commandes
+     * qui proviennent de la reconnaissance vocale
+     */
+    class VoiceCmdReceiver(
+        private val activity: MainActivity,
+    ) : GlobalVoiceCmdReceiver(activity){
+        override fun handleCustomPhrase(phrase: String, context: Context) {
+            when (phrase){
+                "generation recette"->{
+                    //implémenter la génération du prompt à partir de la récuparation des courses
+                }
+                else->{}//}
+            }
+        }
+    }
 }
 
-/**
- * Nous permet de traiter les commandes
- * qui proviennent de la reconnaissance vocale
- */
-class VoiceCmdReceiver(
-    private val activity: MainActivity,
-) : GlobalVoiceCmdReceiver(activity){
-    //J'ajoute pas custom ici
-}
