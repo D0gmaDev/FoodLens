@@ -15,42 +15,51 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:contentDescription="@string/welcome_back"
             app:srcCompat="@mipmap/foodlens_logo" />
 
-        <Button
-            android:id="@+id/shoppingListButton"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/shopping_mode"
-            android:fontFamily="@font/poppins"
-            android:focusable="true"
-            android:nextFocusDown="@id/recipeButton"
-            android:nextFocusForward="@id/recipeButton"
-            android:nextFocusRight="@id/recipeButton"
-            android:drawableLeft="@drawable/barcode_scanner_24px"
-            android:drawableTint="@color/white"
-            android:paddingStart="16dp" />
+            android:orientation="horizontal"
+            android:gravity="center">
 
-        <Button
-            android:id="@+id/recipeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/recipe_mode"
-            android:fontFamily="@font/poppins"
-            android:focusable="true"
-            android:nextFocusUp="@id/shoppingListButton"
-            android:nextFocusLeft="@id/shoppingListButton"
-            android:nextFocusDown="@id/fridgeButton"
-            android:nextFocusForward="@id/fridgeButton"
-            android:nextFocusRight="@id/fridgeButton"
-            android:drawableLeft="@drawable/chef_hat_24px"
-            android:drawableTint="@color/white"
-            android:paddingStart="16dp" />
+            <Button
+                android:id="@+id/shoppingListButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/shopping_mode"
+                android:fontFamily="@font/poppins"
+                android:focusable="true"
+                android:nextFocusDown="@id/fridgeButton"
+                android:nextFocusForward="@id/recipeButton"
+                android:nextFocusRight="@id/recipeButton"
+                android:nextFocusUp="@id/fridgeButton"
+                android:drawableLeft="@drawable/barcode_scanner_24px"
+                android:drawableTint="@color/white"
+                android:paddingStart="16dp"
+                android:layout_margin="10dp" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/recipeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_mode"
+                android:fontFamily="@font/poppins"
+                android:focusable="true"
+                android:nextFocusUp="@id/shoppingListButton"
+                android:nextFocusLeft="@id/shoppingListButton"
+                android:nextFocusDown="@id/fridgeButton"
+                android:nextFocusForward="@id/fridgeButton"
+                android:drawableLeft="@drawable/chef_hat_24px"
+                android:drawableTint="@color/white"
+                android:paddingStart="16dp"
+                android:layout_margin="10dp" />
+
+
+        </LinearLayout>
 
     <Button
         android:id="@+id/fridgeButton"
@@ -61,13 +70,13 @@
         android:drawableTint="@color/white"
         android:focusable="true"
         android:fontFamily="@font/poppins"
-        android:nextFocusLeft="@id/recipeButton"
         android:nextFocusUp="@id/recipeButton"
-        android:nextFocusForward="@id/shoppingListButton"
         android:paddingStart="16dp"
         android:text="@string/fridge_mode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
