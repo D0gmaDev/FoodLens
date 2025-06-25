@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:paddingHorizontal="30dp"
     android:paddingVertical="15dp"
-    tools:context=".shopping.MainActivity"
+    tools:context=".shopping.ShoppingActivity"
     android:layout_gravity="center_vertical">
 
     <Button

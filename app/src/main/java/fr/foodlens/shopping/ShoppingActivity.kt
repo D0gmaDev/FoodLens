@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.vuzix.sdk.barcode.BarcodeType2
 import com.vuzix.sdk.barcode.ScanResult2
@@ -23,7 +22,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class ShoppingActivity : AppCompatActivity() {
     private lateinit var importShoppingListButton: Button
     private lateinit var continueShoppingButton: Button
 
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_shopping_main)
+        setContentView(R.layout.activity_shopping)
 
         importShoppingListButton = findViewById(R.id.import_shopping_list_btn)
         continueShoppingButton = findViewById(R.id.continue_shopping_btn)
@@ -90,13 +89,19 @@ class MainActivity : AppCompatActivity() {
                         if (parsedList == null) {
                             runOnUiThread {
                                 Log.e("shopping.MainActivity", "Failed to parse shopping list from scan result: ${scanResult.text}")
-                                Toast.makeText(this@MainActivity, getString(R.string.scan_failed_or_cancelled), Toast.LENGTH_LONG).show()
+                                Toast.makeText(
+                                    this@ShoppingActivity,
+                                    getString(R.string.scan_failed_or_cancelled),
+                                    Toast.LENGTH_LONG
+                                ).show()
                             }
                             return@launch
                         }
                         // On crée la liste de courses dans la base de données
                         val shoppingList = ShoppingListEntity(label = parsedList.label)
-                        val shoppingListId = AppDatabase.getDatabase(this@MainActivity).shoppingListDao().insert(shoppingList)
+                        val shoppingListId =
+                            AppDatabase.getDatabase(this@ShoppingActivity).shoppingListDao()
+                                .insert(shoppingList)
                         val results = parsedList.items.map {
                             async {
                                 val result = FoodApiClient.getProductByCode(it)
@@ -115,17 +120,27 @@ class MainActivity : AppCompatActivity() {
                         }.awaitAll().filterNotNull()
                         // On insère les items de la liste de courses dans la base de données
                         try {
-                            AppDatabase.getDatabase(this@MainActivity).shoppingListItemDao().insertAll(results)
+                            AppDatabase.getDatabase(this@ShoppingActivity).shoppingListItemDao()
+                                .insertAll(results)
                         } catch (e: Exception) {
                             // En cas d'erreur, on affiche un message et on arrête l'exécution. Ca ne devrait pas arriver normalement
                             Log.e("shopping.MainActivity", "Error inserting shopping list items: ${e.message}")
                             runOnUiThread {
-                                Toast.makeText(this@MainActivity, getString(R.string.scan_failed_or_cancelled), Toast.LENGTH_LONG).show()
+                                Toast.makeText(
+                                    this@ShoppingActivity,
+                                    getString(R.string.scan_failed_or_cancelled),
+                                    Toast.LENGTH_LONG
+                                ).show()
                             }
                             return@launch
                         }
                         runOnUiThread {
-                            startActivity(Intent(this@MainActivity, ScanActivity::class.java).putExtra("listId", shoppingListId))
+                            startActivity(
+                                Intent(
+                                    this@ShoppingActivity,
+                                    ScanActivity::class.java
+                                ).putExtra("listId", shoppingListId)
+                            )
                         }
                     }
                 } else {

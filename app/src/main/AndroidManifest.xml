@@ -32,7 +32,7 @@
             android:name=".shopping.ChooseListActivity"
             android:exported="false" />
         <activity
-            android:name=".shopping.MainActivity"
+            android:name=".shopping.ShoppingActivity"
             android:exported="false" />
         <activity
             android:name=".recipe.RecipeActivity"
