@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.foodlens.ActivityIntent">
+    android:orientation="vertical"
+    tools:context="fr.foodlens.ActivityIntent"
+    android:gravity="center">
 
-    <Button
-        android:id="@+id/btn_scan_barcode"
-        android:layout_width="181dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="380dp"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="52dp"
-        android:text="fill from barcode"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:enabled="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scannedTextResult" />
+        <Button
+            android:id="@+id/btn_scan_barcode"
+            android:text="@string/fill_from_barcode"
+            android:fontFamily="@font/poppins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:enabled="true"
+            android:layout_margin="10dp" />
 
-    <TextView
-        android:id="@+id/scannedTextResult"
-        android:layout_width="483dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="105dp"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:ems="10"
-        android:hint="scan to fill"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:gravity="center"
+            android:id="@+id/scannedTextResult"
+            android:text="@string/resultat_du_scan"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:ems="10" />
+
+</LinearLayout>
