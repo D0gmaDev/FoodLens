@@ -1,6 +1,7 @@
 package fr.foodlens
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,5 +17,11 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val shoppingListButton = findViewById<Button>(R.id.shoppingListButton)
+        val recipeButton = findViewById<Button>(R.id.recipeButton)
+        val fridgeButton = findViewById<Button>(R.id.fridgeButton)
+
+        shoppingListButton.requestFocus()
     }
 }

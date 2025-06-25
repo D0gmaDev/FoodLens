@@ -6,41 +6,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:srcCompat="@mipmap/foodlens_logo"
-        tools:layout_editor_absoluteX="91dp"
-        tools:layout_editor_absoluteY="203dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <TextView
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/welcome_back"
+            app:srcCompat="@mipmap/foodlens_logo" />
+
+        <Button
+            android:id="@+id/shoppingListButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shopping_mode"
+            android:fontFamily="@font/poppins"
+            android:focusable="true"
+            android:nextFocusDown="@id/recipeButton"
+            android:nextFocusForward="@id/recipeButton"
+            android:nextFocusRight="@id/recipeButton"
+            android:drawableLeft="@drawable/barcode_scanner_24px"
+            android:drawableTint="@color/white"
+            android:paddingStart="16dp" />
+
+        <Button
+            android:id="@+id/recipeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recipe_mode"
+            android:fontFamily="@font/poppins"
+            android:focusable="true"
+            android:nextFocusUp="@id/shoppingListButton"
+            android:nextFocusLeft="@id/shoppingListButton"
+            android:nextFocusDown="@id/fridgeButton"
+            android:nextFocusForward="@id/fridgeButton"
+            android:nextFocusRight="@id/fridgeButton"
+            android:drawableLeft="@drawable/chef_hat_24px"
+            android:drawableTint="@color/white"
+            android:paddingStart="16dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/fridgeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/welcome_back"
+        android:backgroundTint="@color/orange"
+        android:drawableLeft="@drawable/kitchen_24px"
+        android:drawableTint="@color/white"
+        android:focusable="true"
         android:fontFamily="@font/poppins"
-        android:textStyle="normal"
+        android:nextFocusLeft="@id/recipeButton"
+        android:nextFocusUp="@id/recipeButton"
+        android:nextFocusForward="@id/shoppingListButton"
+        android:paddingStart="16dp"
+        android:text="@string/fridge_mode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:progressTint="@color/orange"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="30dp"/>
-
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
