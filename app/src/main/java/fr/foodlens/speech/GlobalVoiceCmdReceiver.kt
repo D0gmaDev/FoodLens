@@ -4,34 +4,64 @@ import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
+import android.widget.Toast
 import com.vuzix.hud.actionmenu.ActionMenuActivity
 import com.vuzix.sdk.speechrecognitionservice.VuzixSpeechClient
-import fr.foodlens.ActivityIntent
 import fr.foodlens.MainActivity
-import fr.foodlens.RecetteActivity
-import android.util.Log
+import fr.foodlens.fridge.FridgeActivity
+import fr.foodlens.recipe.RecipeActivity
+import fr.foodlens.shopping.ShoppingActivity
 
 open class GlobalVoiceCmdReceiver (
     private val activity: ActionMenuActivity,
+    private val vuzixSpeechClient: VuzixSpeechClient,
 ) : BroadcastReceiver(){
-    override fun onReceive(context: Context?, intent: Intent?) {
-        val phrase = intent?.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA)?:return
-        Log.d("global_receiver","phrase reçue: $phrase")
-        when (phrase.lowercase()){
-            BasicVocabulary.SCAN->{
-                startActivity(ActivityIntent::class.java)
-            }
-            BasicVocabulary.RECETTE->{
-                startActivity(RecetteActivity::class.java)
-            }
-            BasicVocabulary.HOME->{
-                startActivity(MainActivity::class.java)
-            }
+
+    init {
+        initVoiceSpeechClient()
+    }
+
+    open fun initVoiceSpeechClient() {
+        vuzixSpeechClient.apply {
+            deleteAllPhrases()
+            insertWakeWordPhrase(BasicVocabulary.WAKE_UP)
+            insertVoiceOffPhrase(BasicVocabulary.SHUT_DOWN)
+            insertPhrase(BasicVocabulary.HOME)
+            insertPhrase(BasicVocabulary.GENERATION)
+            insertPhrase(BasicVocabulary.DE)
         }
     }
 
-    //Va nous servir à traiter les cas non génériques
-    open fun handleCustomPhrase(phrase:String, context:Context){}
+    override fun onReceive(context: Context?, intent: Intent?) {
+        val phrase = intent?.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA) ?: return
+        Log.d("global_receiver", "phrase reçue: $phrase")
+        when (phrase.lowercase()){
+            BasicVocabulary.SHOPPING -> {
+                Log.d("global_receiver", "Phrase shopping reconnue")
+                startActivity(ShoppingActivity::class.java)
+            }
+            BasicVocabulary.RECETTE->{
+                Log.d("global_receiver", "Phrase recette reconnue")
+                startActivity(RecipeActivity::class.java)
+            }
+            BasicVocabulary.HOME->{
+                Log.d("global_receiver", "Phrase home reconnue")
+                startActivity(MainActivity::class.java)
+            }
+
+            BasicVocabulary.REFRIGERATOR -> {
+                Log.d("global_receiver", "Phrase frigo reconnue")
+                startActivity(FridgeActivity::class.java)
+            }
+
+            else -> {
+                Log.d("global_receiver", "Phrase non prise en charge : $phrase")
+                Toast.makeText(activity, "Phrase non prise en charge : $phrase", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
 
     protected fun startActivity(classToChange: Class<out Activity>){
         val intentToChange = Intent(activity, classToChange)
@@ -39,26 +69,13 @@ open class GlobalVoiceCmdReceiver (
     }
 }
 
-/**
- * Sert à initialiser tout les mots basiques contenus par nos speechClient génériques
- */
-object VoiceSpeechManager{
-    fun init(voiceSpeechClient: VuzixSpeechClient){
-        voiceSpeechClient.deleteAllPhrases()
-        voiceSpeechClient.insertWakeWordPhrase(BasicVocabulary.WAKE_UP)
-        voiceSpeechClient.insertVoiceOffPhrase(BasicVocabulary.SHUT_DOWN)
-        voiceSpeechClient.insertPhrase(BasicVocabulary.HOME)
-        voiceSpeechClient.insertPhrase(BasicVocabulary.GENERATION)
-        voiceSpeechClient.insertPhrase(BasicVocabulary.DE)
-    }
-}
-
 object BasicVocabulary{
     const val WAKE_UP="dis vuzix"
     const val SHUT_DOWN="stop vuziw"
-    const val SCAN="scan"
+    const val SHOPPING = "courses"
     const val RECETTE="recette"
     const val HOME="home"
     const val GENERATION="generation"
     const val DE="de"
+    const val REFRIGERATOR = "frigo"
 }
