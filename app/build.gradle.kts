@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -47,8 +48,12 @@ dependencies {
     implementation(libs.moshi.kotlin)
     implementation(libs.retrofit)
     implementation(libs.converter.moshi)
+    kapt(libs.moshi.kotlin.codegen)
 
     implementation(libs.logging.interceptor)
+
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
