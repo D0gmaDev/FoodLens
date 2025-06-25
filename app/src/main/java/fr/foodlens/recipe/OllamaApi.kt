@@ -2,7 +2,6 @@ package fr.foodlens.recipe
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import fr.foodlens.openfoodfacts.Product
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -34,9 +33,9 @@ object OllamaApi {
 
     private val service: OllamaService by lazy { retrofit.create(OllamaService::class.java) }
 
-    suspend fun generateRecipe(ingredients: List<Product>): Result<Recipe> {
+    suspend fun generateRecipe(ingredients: List<String>): Result<Recipe> {
 
-        val products = ingredients.joinToString(separator = ", ") { it.toString() }
+        val products = ingredients.joinToString(separator = ", ")
 
         val prompt = """Fais une recette de cuisine très consise avec les ingrédients suivants :
                 
