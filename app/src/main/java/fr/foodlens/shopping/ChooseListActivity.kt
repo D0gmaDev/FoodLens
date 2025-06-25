@@ -2,15 +2,15 @@ package fr.foodlens.shopping
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import fr.foodlens.DefaultActivity
 import fr.foodlens.R
 import fr.foodlens.database.AppDatabase
 import kotlinx.coroutines.launch
 
-class ChooseListActivity : AppCompatActivity() {
+class ChooseListActivity : DefaultActivity() {
     private val db = AppDatabase.getDatabase(this)
     private val shoppingListDao = db.shoppingListDao()
 

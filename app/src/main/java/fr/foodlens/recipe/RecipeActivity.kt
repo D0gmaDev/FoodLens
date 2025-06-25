@@ -5,15 +5,15 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import fr.foodlens.DefaultActivity
 import fr.foodlens.R
-import fr.foodlens.openfoodfacts.Product
+import fr.foodlens.database.AppDatabase
 import kotlinx.coroutines.launch
 
-class RecipeActivity : AppCompatActivity() {
+class RecipeActivity : DefaultActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,34 +26,9 @@ class RecipeActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
 
-            //TODO fetch the ingredients from the fridge
+            val ingredients = AppDatabase.getDatabase(this@RecipeActivity).fridgeItemDao().getAll()
 
-            val ingredients = listOf(
-                Product(
-                    id = "1",
-                    name = "Pomme",
-                    genericName = null,
-                    quantity = "2",
-                    brands = "Marque A",
-                    imageUrl = "",
-                    categories = "Fruits",
-                    nutriScoreGrade = "a",
-                    keywords = emptyList()
-                ),
-                Product(
-                    id = "2",
-                    name = "Miel",
-                    genericName = null,
-                    quantity = "30ml",
-                    brands = "Marque B",
-                    imageUrl = "",
-                    categories = "Sucre",
-                    nutriScoreGrade = "d",
-                    keywords = emptyList()
-                ),
-            )
-
-            OllamaApi.generateRecipe(ingredients)
+            OllamaApi.generateRecipe(ingredients.map { it.toString() })
                 .onSuccess { recipe ->
                     setContentView(R.layout.activity_recipe_result)
 

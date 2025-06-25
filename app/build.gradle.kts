@@ -43,6 +43,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation("com.vuzix:hud-actionmenu:2.9.1")
+    implementation("com.vuzix:sdk-barcode:1.72")
+    implementation("com.vuzix:sdk-speechrecognitionservice:1.97.1")
 
     implementation(libs.moshi)
     implementation(libs.moshi.kotlin)

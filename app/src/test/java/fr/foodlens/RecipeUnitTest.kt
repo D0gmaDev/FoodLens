@@ -57,7 +57,7 @@ class RecipeUnitTest {
         )
 
         // Call the method to generate a recipe based on the ingredients
-        val result = runBlocking { OllamaApi.generateRecipe(ingredients) }
+        val result = runBlocking { OllamaApi.generateRecipe(ingredients.map { it.toString() }) }
 
         // Assert that the result is successful and contains expected data
         assertTrue(result.isSuccess)
