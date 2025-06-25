@@ -113,6 +113,7 @@ class ShoppingActivity : DefaultActivity() {
                                         quantity = it.quantity,
                                         listId = shoppingListId,
                                         checked = false,
+                                        nutriscoreGrade = it.nutriScoreGrade
                                     )
                                 }
                                 null

@@ -135,9 +135,9 @@ class ScanActivity : DefaultActivity(), PermissionsFragment.Listener {
                 return@launch
             }
             val updateJob = async { itemDao.updateItemCheckStatus(listId = listId, itemId = itemList.id, isChecked = true) }
-            val insertJob = async { db.fridgeItemDao().insert(FridgeItemEntity(code = itemList.id, label = itemList.label, quantity = itemList.quantity)) }
+            val insertJob = async { db.fridgeItemDao().insert(FridgeItemEntity(code = itemList.id, label = itemList.label, quantity = itemList.quantity, nutriscoreGrade = itemList.nutriscoreGrade)) }
             listOf(updateJob, insertJob).awaitAll()
-            scanInstructionsView.text = getString(R.string.item_registered)
+            scanInstructionsView.text = getString(R.string.item_registred_nutriscore, itemList.nutriscoreGrade)
             delay(3000)
             scannerFragment.setListener2(mScannerListener)
             resetInstructions()

@@ -29,7 +29,8 @@ data class ShoppingListItemEntity(
     val label: String,
     val listId: Long,
     val quantity: String,
-    val checked: Boolean
+    val checked: Boolean,
+    val nutriscoreGrade: String
 )
 
 @Entity(tableName = "fridge_items")
@@ -37,5 +38,6 @@ data class FridgeItemEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val code: String,
     val label: String,
-    val quantity: String
+    val quantity: String,
+    val nutriscoreGrade: String
 )
