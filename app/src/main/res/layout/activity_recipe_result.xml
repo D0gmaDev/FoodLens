@@ -17,7 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="@string/titre_de_la_recette" />
+            android:text="@string/titre_de_la_recette"
+            android:textSize="30dp"
+            android:textColor="@color/white" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -35,8 +37,10 @@
                 android:background="@color/white">
 
                 <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/blue"
                     android:id="@+id/ingredients"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/poppins_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -44,6 +48,7 @@
 
                 <TextView
                     android:id="@+id/listIngredients"
+                    android:textColor="@color/blue"
                     android:fontFamily="@font/poppins"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -52,14 +57,17 @@
 
                 <TextView
                     android:id="@+id/instructions"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/poppins_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Instructions" />
+                    android:text="Instructions"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/blue" />
 
                 <TextView
                     android:id="@+id/listInstructions"
+                    android:textColor="@color/blue"
                     android:fontFamily="@font/poppins_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
