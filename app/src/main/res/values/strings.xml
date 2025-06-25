@@ -13,4 +13,11 @@
     <string name="item_registered">Item registered!</string>
     <string name="unable_to_scan_please_try_again">Unable to scan, please try again.</string>
     <string name="point_the_camera_at_a_barcode_to_scan_it">Point the camera at a barcode to scan it.</string>
+    <string name="shopping_mode">Mode Courses</string>
+    <string name="recipe_mode">Mode Recette</string>
+    <string name="fridge_mode">Mon Frigidaire</string>
+    <string name="loading_recipe">Votre chef cuisine...</string>
+    <string name="titre_de_la_recette">titre de la recette</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
 </resources>
