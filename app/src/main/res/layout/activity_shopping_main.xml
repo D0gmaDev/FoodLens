@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="30dp"
+    android:paddingVertical="15dp"
+    tools:context=".shopping.MainActivity"
+    android:layout_gravity="center_vertical">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/import_shopping_list"
+        android:id="@+id/import_shopping_list_btn"
+        android:fontFamily="@font/poppins"
+        android:textStyle="normal"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/continue_shopping"
+        android:id="@+id/continue_shopping_btn"
+        android:fontFamily="@font/poppins"
+        android:textStyle="normal"
+        app:layout_constraintTop_toBottomOf="@id/import_shopping_list_btn"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

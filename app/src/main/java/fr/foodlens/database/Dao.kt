@@ -9,13 +9,13 @@ import androidx.room.Query
 @Dao
 interface ShoppingListDao {
     @Query("SELECT * FROM shopping_lists")
-    suspend fun getAllShoppingLists(): List<ShoppingListEntity>
+    suspend fun getAll(): List<ShoppingListEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertShoppingList(list: ShoppingListEntity)
+    suspend fun insert(list: ShoppingListEntity): Long
 
     @Delete
-    suspend fun deleteShoppingList(list: ShoppingListEntity)
+    suspend fun delete(list: ShoppingListEntity)
 
     @Query("DELETE FROM shopping_lists WHERE id = :listId")
     suspend fun deleteShoppingListById(listId: Int)
@@ -26,12 +26,33 @@ interface ShoppingListItemDao {
     @Query("SELECT * FROM shopping_list_items WHERE listId = :listId")
     suspend fun getItemsForList(listId: Int): List<ShoppingListItemEntity>
 
+    @Query("SELECT * FROM shopping_list_items WHERE id = :itemId AND listId = :listId")
+    suspend fun getItemById(itemId: Int, listId: Int): ShoppingListItemEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertShoppingListItem(item: ShoppingListItemEntity)
+    suspend fun insert(item: ShoppingListItemEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(items: List<ShoppingListItemEntity>)
 
     @Delete
-    suspend fun deleteShoppingListItem(item: ShoppingListItemEntity)
+    suspend fun delete(item: ShoppingListItemEntity)
 
     @Query("UPDATE shopping_list_items SET checked = :isChecked WHERE id = :itemId AND listId = :listId")
     suspend fun updateItemCheckStatus(listId: Int, itemId: Int, isChecked: Boolean)
+}
+
+@Dao
+interface FridgeItemDao {
+    @Query("SELECT * FROM fridge_items")
+    suspend fun getAll(): List<FridgeItemEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(item: FridgeItemEntity): Long
+
+    @Delete
+    suspend fun delete(item: FridgeItemEntity)
+
+    @Query("DELETE FROM fridge_items WHERE id = :itemId")
+    suspend fun deleteFridgeItemById(itemId: Long)
 }

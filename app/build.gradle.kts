@@ -54,6 +54,9 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
 
+    implementation("com.vuzix:sdk-barcode:1.72")
+    implementation("com.vuzix:sdk-speechrecognitionservice:1.97.1")
+
     ksp(libs.androidx.room.compiler)
 
     testImplementation(libs.junit)

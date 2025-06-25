@@ -2,11 +2,12 @@ package fr.foodlens.database
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "shopping_lists")
 data class ShoppingListEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val label: String,
 )
 
@@ -19,11 +20,22 @@ data class ShoppingListEntity(
             childColumns = ["listId"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
+    indices = [Index(value = ["listId"])],
+    primaryKeys = ["id", "listId"]
 )
 data class ShoppingListItemEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    val id: String,
     val label: String,
-    val listId: Int,
+    val listId: Long,
+    val quantity: String,
     val checked: Boolean
+)
+
+@Entity(tableName = "fridge_items")
+data class FridgeItemEntity(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val code: String,
+    val label: String,
+    val quantity: String
 )

@@ -10,6 +10,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun shoppingListDao(): ShoppingListDao
     abstract fun shoppingListItemDao(): ShoppingListItemDao
+    abstract fun fridgeItemDao(): FridgeItemDao
 
     companion object {
         @Volatile
