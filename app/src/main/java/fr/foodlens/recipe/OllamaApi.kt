@@ -49,7 +49,6 @@ object OllamaApi {
                 - "title" : le titre de la recette
                 - "ingredients" : List<String> : un tableau des ingrédients (simple chaînes de caractères)
                 - "instructions" : List<String> : un tableau des instructions de préparation (simples chaînes de caractères)
-            
                 """
         try {
             val response = service.generate(
@@ -76,12 +75,11 @@ object OllamaApi {
 
         val start = cleanedJson.indexOf('{')
         val end = cleanedJson.lastIndexOf('}')
-        if (start != -1 && end != -1 && end > start) {
+
+        return if (start != -1 && end != -1 && end > start) {
             cleanedJson.substring(start, end + 1)
         } else {
             cleanedJson
         }
-
-        return cleanedJson
     }
 }

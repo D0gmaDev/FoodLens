@@ -62,9 +62,9 @@ class RecipeUnitTest {
         // Assert that the result is successful and contains expected data
         assertTrue(result.isSuccess)
         assertNotNull(result.getOrNull())
-        assert(result.getOrNull()?.title?.isNotEmpty() == true)
-        assert(result.getOrNull()?.ingredients?.isNotEmpty() == true)
-        assert(result.getOrNull()?.instructions?.isNotEmpty() == true)
+        assertTrue(result.getOrNull()?.title?.isNotEmpty() == true)
+        assertTrue(result.getOrNull()?.ingredients?.isNotEmpty() == true)
+        assertTrue(result.getOrNull()?.instructions?.isNotEmpty() == true)
     }
 
 }
