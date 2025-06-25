@@ -1,10 +1,14 @@
 package fr.foodlens
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import fr.foodlens.recipe.OllamaApi
+import fr.foodlens.recipe.RecipeActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +19,19 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        OllamaApi.init("http://10.0.2.2:11434")
+
+        val shoppingListButton = findViewById<Button>(R.id.shoppingListButton)
+        val recipeButton = findViewById<Button>(R.id.recipeButton)
+        val fridgeButton = findViewById<Button>(R.id.fridgeButton)
+
+        shoppingListButton.requestFocus()
+
+        recipeButton.setOnClickListener {
+            val intent = Intent(this, RecipeActivity::class.java)
+            startActivity(intent)
         }
     }
 }
