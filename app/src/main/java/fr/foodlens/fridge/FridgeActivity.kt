@@ -2,17 +2,17 @@ package fr.foodlens.fridge
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import fr.foodlens.DefaultActivity
 import fr.foodlens.R
 import fr.foodlens.database.AppDatabase
 import kotlinx.coroutines.launch
 
-class FridgeActivity : AppCompatActivity() {
+class FridgeActivity : DefaultActivity() {
 
     private lateinit var adapter: FridgeAdapter
 

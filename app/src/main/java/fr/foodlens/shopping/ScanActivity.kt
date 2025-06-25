@@ -8,14 +8,11 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.vuzix.sdk.barcode.BarcodeType2
 import com.vuzix.sdk.barcode.ScanResult2
 import com.vuzix.sdk.barcode.ScannerFragment
+import fr.foodlens.DefaultActivity
 import fr.foodlens.R
 import fr.foodlens.database.AppDatabase
 import fr.foodlens.database.FridgeItemEntity
@@ -24,7 +21,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class ScanActivity : AppCompatActivity(), PermissionsFragment.Listener {
+class ScanActivity : DefaultActivity(), PermissionsFragment.Listener {
 
     private val barcodeTypes = arrayOf(BarcodeType2.EAN_13.name, BarcodeType2.EAN_8.name)
 

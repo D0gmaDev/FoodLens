@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.vuzix.sdk.barcode.BarcodeType2
 import com.vuzix.sdk.barcode.ScanResult2
 import com.vuzix.sdk.barcode.ScannerIntent
+import fr.foodlens.DefaultActivity
 import fr.foodlens.R
 import fr.foodlens.database.AppDatabase
 import fr.foodlens.database.ShoppingListEntity
@@ -22,7 +22,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
-class ShoppingActivity : AppCompatActivity() {
+class ShoppingActivity : DefaultActivity() {
     private lateinit var importShoppingListButton: Button
     private lateinit var continueShoppingButton: Button
 

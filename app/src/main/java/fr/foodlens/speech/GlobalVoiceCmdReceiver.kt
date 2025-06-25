@@ -47,7 +47,10 @@ open class GlobalVoiceCmdReceiver (
             }
             BasicVocabulary.HOME->{
                 Log.d("global_receiver", "Phrase home reconnue")
-                startActivity(MainActivity::class.java)
+                // Retour à l'écran d'accueil et suppression de l'historique
+                Intent(activity, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                }.also { activity.startActivity(it) }
             }
 
             BasicVocabulary.REFRIGERATOR -> {
@@ -70,8 +73,8 @@ open class GlobalVoiceCmdReceiver (
 }
 
 object BasicVocabulary{
-    const val WAKE_UP="dis vuzix"
-    const val SHUT_DOWN="stop vuziw"
+    const val WAKE_UP = "Hey FoodLens"
+    const val SHUT_DOWN = "Au revoir FoodLens"
     const val SHOPPING = "courses"
     const val RECETTE="recette"
     const val HOME="home"

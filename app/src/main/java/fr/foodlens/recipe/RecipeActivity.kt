@@ -5,15 +5,15 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import fr.foodlens.DefaultActivity
 import fr.foodlens.R
 import fr.foodlens.openfoodfacts.Product
 import kotlinx.coroutines.launch
 
-class RecipeActivity : AppCompatActivity() {
+class RecipeActivity : DefaultActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
