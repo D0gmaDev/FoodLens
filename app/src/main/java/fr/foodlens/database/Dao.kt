@@ -18,16 +18,16 @@ interface ShoppingListDao {
     suspend fun delete(list: ShoppingListEntity)
 
     @Query("DELETE FROM shopping_lists WHERE id = :listId")
-    suspend fun deleteShoppingListById(listId: Int)
+    suspend fun deleteShoppingListById(listId: Long)
 }
 
 @Dao
 interface ShoppingListItemDao {
     @Query("SELECT * FROM shopping_list_items WHERE listId = :listId")
-    suspend fun getItemsForList(listId: Int): List<ShoppingListItemEntity>
+    suspend fun getItemsForList(listId: Long): List<ShoppingListItemEntity>
 
     @Query("SELECT * FROM shopping_list_items WHERE id = :itemId AND listId = :listId")
-    suspend fun getItemById(itemId: Int, listId: Int): ShoppingListItemEntity?
+    suspend fun getItemById(itemId: String, listId: Long): ShoppingListItemEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: ShoppingListItemEntity)
@@ -39,7 +39,7 @@ interface ShoppingListItemDao {
     suspend fun delete(item: ShoppingListItemEntity)
 
     @Query("UPDATE shopping_list_items SET checked = :isChecked WHERE id = :itemId AND listId = :listId")
-    suspend fun updateItemCheckStatus(listId: Int, itemId: Int, isChecked: Boolean)
+    suspend fun updateItemCheckStatus(listId: Long, itemId: String, isChecked: Boolean)
 }
 
 @Dao

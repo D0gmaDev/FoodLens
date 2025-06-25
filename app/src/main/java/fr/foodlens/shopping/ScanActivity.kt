@@ -18,6 +18,9 @@ import com.vuzix.sdk.barcode.ScanResult2
 import com.vuzix.sdk.barcode.ScannerFragment
 import fr.foodlens.R
 import fr.foodlens.database.AppDatabase
+import fr.foodlens.database.FridgeItemEntity
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -28,7 +31,7 @@ class ScanActivity : AppCompatActivity(), PermissionsFragment.Listener {
     private lateinit var scanInstructionsView: TextView
     private lateinit var mScannerListener: ScannerFragment.Listener2
 
-    private var listId: Int = -1
+    private var listId: Long = -1L
 
     companion object {
         private const val TAG_PERMISSIONS_FRAGMENT = "permissions_cam"
@@ -38,9 +41,12 @@ class ScanActivity : AppCompatActivity(), PermissionsFragment.Listener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scan)
 
-        listId = intent.getIntExtra("listId", -1)
+        listId = intent.getLongExtra("listId", -1)
 
-        if (listId == -1) {
+        Log.d("ScanActivity", "Received listId: $listId")
+        Log.d("ScanActivity", "Intent extras: ${intent.extras}")
+
+        if (listId == -1L) {
             Toast.makeText(this, "No list ID provided", Toast.LENGTH_SHORT).show() // Should not happen
             finish()
             return
@@ -109,7 +115,9 @@ class ScanActivity : AppCompatActivity(), PermissionsFragment.Listener {
         Log.d("ScanActivity", "onScanFragmentScanResult: $results results found")
         scanInstructionsView.text = "Scanning..."
         lifecycleScope.launch {
-            val itemId = results[0]?.text?.toIntOrNull()
+            val listitems = AppDatabase.getDatabase(this@ScanActivity).shoppingListItemDao().getItemsForList(listId)
+            Log.d("ScanActivity", "List items: $listitems")
+            val itemId = results[0]?.text
             if (itemId == null) {
                 scanInstructionsView.text = "Invalid barcode scanned."
                 delay(3000)
@@ -117,7 +125,9 @@ class ScanActivity : AppCompatActivity(), PermissionsFragment.Listener {
                 resetInstructions()
                 return@launch
             }
-            val itemList = AppDatabase.getDatabase(this@ScanActivity).shoppingListItemDao().getItemById(itemId, listId)
+            val db = AppDatabase.getDatabase(this@ScanActivity)
+            val itemDao = db.shoppingListItemDao()
+            val itemList = itemDao.getItemById(itemId, listId)
             if (itemList == null) {
                 scanInstructionsView.text = "Item not found in the list."
                 delay(3000)
@@ -125,8 +135,21 @@ class ScanActivity : AppCompatActivity(), PermissionsFragment.Listener {
                 resetInstructions()
                 return@launch
             }
+            if (itemList.checked) {
+                scanInstructionsView.text = "Item already registered."
+                delay(3000)
+                scannerFragment.setListener2(mScannerListener)
+                resetInstructions()
+                return@launch
+            }
+            val updateJob = async { itemDao.updateItemCheckStatus(listId = listId, itemId = itemList.id, isChecked = true) }
+            val insertJob = async { db.fridgeItemDao().insert(FridgeItemEntity(code = itemList.id, label = itemList.label, quantity = itemList.quantity)) }
+            listOf(updateJob, insertJob).awaitAll()
+            scanInstructionsView.text = "Item registered!"
+            delay(3000)
+            scannerFragment.setListener2(mScannerListener)
+            resetInstructions()
         }
-//        showScanResult(bitmap, results[0])
     }
 
 

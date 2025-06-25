@@ -100,6 +100,7 @@ class MainActivity : AppCompatActivity() {
                         val results = parsedList.items.map {
                             async {
                                 val result = FoodApiClient.getProductByCode(it)
+                                Log.d("shopping.MainActivity", "Scan result for item $it: $result")
                                 result.onSuccess {
                                     return@async ShoppingListItemEntity(
                                         id = it.id,
