@@ -4,30 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="fr.foodlens.ActivityIntent"
-    android:gravity="center">
+    android:gravity="center"
+    tools:context="fr.foodlens.ActivityIntent">
 
         <Button
             android:id="@+id/btn_scan_barcode"
-            android:text="@string/fill_from_barcode"
-            android:fontFamily="@font/poppins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/fill_from_barcode"
             android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:enabled="true"
-            android:layout_margin="10dp" />
-
+            android:enabled="true" />
 
         <TextView
-            android:gravity="center"
             android:id="@+id/scannedTextResult"
-            android:text="@string/resultat_du_scan"
-            android:fontFamily="@font/poppins_regular"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/resultat_du_scan"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:ems="10" />
-
 </LinearLayout>

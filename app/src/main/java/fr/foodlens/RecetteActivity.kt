@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.IntentFilter
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import com.vuzix.hud.actionmenu.ActionMenuActivity
 import com.vuzix.sdk.speechrecognitionservice.VuzixSpeechClient
@@ -12,13 +11,14 @@ import fr.foodlens.speech.BasicVocabulary
 import fr.foodlens.speech.GlobalVoiceCmdReceiver
 import fr.foodlens.speech.VoiceSpeechManager
 
-class RecetteAcitivity: ActionMenuActivity() {
+class RecetteActivity : ActionMenuActivity() {
     private lateinit var vuzixClient:VuzixSpeechClient
     private lateinit var voiceReceiver: VoiceCmdReceiver
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recettes)
+        Log.d("Recette", "onCreate called")
 
         //Initialisation du client et de l'actionneur
         //On peut faire de même dans toutes les acttivités pour des tâches génériques
@@ -46,7 +46,7 @@ class RecetteAcitivity: ActionMenuActivity() {
      * qui proviennent de la reconnaissance vocale
      */
     class VoiceCmdReceiver(
-        private val activity: RecetteAcitivity,
+        private val activity: RecetteActivity,
     ) : GlobalVoiceCmdReceiver(activity){
         override fun handleCustomPhrase(phrase: String, context: Context) {
             when (phrase){

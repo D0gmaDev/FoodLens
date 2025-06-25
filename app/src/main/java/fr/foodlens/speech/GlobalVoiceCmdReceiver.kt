@@ -8,7 +8,7 @@ import com.vuzix.hud.actionmenu.ActionMenuActivity
 import com.vuzix.sdk.speechrecognitionservice.VuzixSpeechClient
 import fr.foodlens.ActivityIntent
 import fr.foodlens.MainActivity
-import fr.foodlens.RecetteAcitivity
+import fr.foodlens.RecetteActivity
 
 open class GlobalVoiceCmdReceiver (
     private val activity: ActionMenuActivity,
@@ -20,7 +20,7 @@ open class GlobalVoiceCmdReceiver (
                 startActivity(ActivityIntent::class.java)
             }
             BasicVocabulary.RECETTE->{
-                startActivity(RecetteAcitivity::class.java)
+                startActivity(RecetteActivity::class.java)
             }
             BasicVocabulary.HOME->{
                 startActivity(MainActivity::class.java)

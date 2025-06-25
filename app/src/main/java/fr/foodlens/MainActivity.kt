@@ -6,15 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.speech.tts.Voice
 import android.util.Log
 import android.widget.Button
-import androidx.core.content.PackageManagerCompat.LOG_TAG
 import com.vuzix.hud.actionmenu.ActionMenuActivity
 import com.vuzix.sdk.speechrecognitionservice.VuzixSpeechClient
-import fr.foodlens.speech.BasicVocabulary
-import fr.foodlens.speech.GlobalVoiceCmdReceiver
-import fr.foodlens.speech.VoiceSpeechManager
 
 class MainActivity : ActionMenuActivity() {
     private lateinit var vuzixClient: VuzixSpeechClient;
@@ -25,7 +20,6 @@ class MainActivity : ActionMenuActivity() {
         setContentView(R.layout.activity_main)
 
         //Initialisation du client et de l'actionneur
-        //On peut faire de même dans toutes les acttivités pour des tâches génériques
         try{
             vuzixClient = VuzixSpeechClient(this)
         }catch (e:RuntimeException){
@@ -36,9 +30,11 @@ class MainActivity : ActionMenuActivity() {
                 Log.d("Vuzix_Speech",e.toString())
             }
         }
-        VoiceSpeechManager.init(vuzixClient)
-        vuzixClient.insertPhrase(BasicVocabulary.SCAN)
-        vuzixClient.insertPhrase(BasicVocabulary.RECETTE)
+        vuzixClient.deleteAllPhrases()
+        vuzixClient.insertWakeWordPhrase(VoiceCmdReceiver.WAKE_UP)
+        vuzixClient.insertVoiceOffPhrase(VoiceCmdReceiver.SHUT_DOWN)
+        vuzixClient.insertPhrase(VoiceCmdReceiver.SCAN)
+        vuzixClient.insertPhrase(VoiceCmdReceiver.RECETTE)
 
         //On initialise l'actionneur
         voiceReceiver= VoiceCmdReceiver(this)
@@ -55,13 +51,68 @@ class MainActivity : ActionMenuActivity() {
             startActivity(Intent(this, EmbeddedActivity::class.java))
         }
     }
+}
     /**
      * Nous permet de traiter les commandes
      * qui proviennent de la reconnaissance vocale
-     */
+
     class VoiceCmdReceiver(
         private val activity: MainActivity,
-    ) : GlobalVoiceCmdReceiver(activity){
-    }
-}
+    ) : GlobalVoiceCmdReceiver(activity) {
 
+    fun onVoiceCommand(phrase: String) {
+    when (phrase.lowercase()) {
+    "scan externe" -> {
+    activity.startActivity(Intent(activity, ActivityIntent::class.java))
+    }
+    "scan embarqué" -> {
+    activity.startActivity(Intent(activity, EmbeddedActivity::class.java))
+    }
+    "scan le code barre" -> {
+    // Exemple : tu peux lancer une activité spécifique ou afficher un log
+    Log.d("VoiceCmd", "Commande vocale : scan le code barre")
+    activity.startActivity(Intent(activity, ActivityIntent::class.java))
+    }
+    else -> {
+    Log.d("VoiceCmd", "Commande non reconnue : $phrase")
+    }
+    }
+    }
+    }
+    } */
+
+    class VoiceCmdReceiver(
+        private val activity: MainActivity,
+    ) : BroadcastReceiver() {
+        companion object {
+            const val SCAN: String = "scan"
+            const val RECETTE: String = "recette"
+            const val HOME = "home"
+            const val WAKE_UP = "dis vuzix"
+            const val SHUT_DOWN = "stop vuziw"
+        }
+
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val phrase = intent?.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA) ?: return
+            when (phrase.lowercase()) {
+                SCAN -> {
+                    val intentToChange = Intent(activity, ActivityIntent::class.java)
+                    activity.startActivity(intentToChange)
+                }
+
+                RECETTE -> {
+                    val intentToChange = Intent(activity, RecetteActivity::class.java)
+                    activity.startActivity(intentToChange)
+                }
+
+                HOME -> {
+                    val intentToChange = Intent(activity, MainActivity::class.java)
+                    activity.startActivity(intentToChange)
+                }
+
+                else -> {
+                    Log.d("VoiceCmd", "Commande non reconnue : $phrase")
+                }
+            }
+        }
+    }

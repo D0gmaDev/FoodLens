@@ -13,13 +13,19 @@
         android:text="scan externe"
         android:fontFamily="@font/poppins"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:nextFocusDown="@id/launch_embedded"
+        android:nextFocusForward="@id/launch_embedded" />
 
     <Button
         android:id="@+id/launch_embedded"
         android:text="scan embarqué"
         android:fontFamily="@font/poppins"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:nextFocusDown="@id/launch_intent"
+        android:nextFocusForward="@id/launch_intent" />
 
 </LinearLayout>
