@@ -13,12 +13,13 @@
         <TextView
             android:layout_margin="30dp"
             android:id="@+id/recipeTitle"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
             android:text="@string/titre_de_la_recette"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:textColor="@color/white" />
 
         <ScrollView
@@ -44,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Ingredients" />
+                    android:text="@string/ingredients" />
 
                 <TextView
                     android:id="@+id/listIngredients"
@@ -53,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="list" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/instructions"
@@ -61,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Instructions"
+                    android:text="@string/instructions"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/blue" />
 
@@ -72,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Instructions" />
+                    android:text="" />
 
             </LinearLayout>
         </ScrollView>

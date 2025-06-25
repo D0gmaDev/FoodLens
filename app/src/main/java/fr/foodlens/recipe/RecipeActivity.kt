@@ -2,7 +2,8 @@ package fr.foodlens.recipe
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -23,19 +24,9 @@ class RecipeActivity : AppCompatActivity() {
             insets
         }
 
-        val loadingBar = findViewById<android.widget.ProgressBar>(R.id.loadingBar)
-        val loadingText = findViewById<android.widget.TextView>(R.id.loadingText)
-        val recipeText = findViewById<android.widget.TextView>(R.id.recipeText)
-
         lifecycleScope.launch {
 
-            val produit = """
-                - 2 pommes
-                - 1 banane
-                - 100g de farine
-                - 2 oeufs
-                - 50g de sucre
-            """.trimIndent()
+            //TODO fetch the ingredients from the fridge
 
             val ingredients = listOf(
                 Product(
@@ -63,16 +54,23 @@ class RecipeActivity : AppCompatActivity() {
             )
 
             OllamaApi.generateRecipe(ingredients)
-                .onSuccess {
-                    loadingBar.visibility = View.GONE
-                    loadingText.visibility = View.GONE
+                .onSuccess { recipe ->
+                    setContentView(R.layout.activity_recipe_result)
 
-                    recipeText.visibility = View.VISIBLE
-                    recipeText.text = it.title
+                    val title = findViewById<TextView>(R.id.recipeTitle)
+                    title.text = recipe.title
+
+                    val ingredients = findViewById<TextView>(R.id.listIngredients)
+                    ingredients.text = recipe.ingredients.joinToString("\n") { "- $it" }
+
+                    val instructions = findViewById<TextView>(R.id.listInstructions)
+                    instructions.text = recipe.instructions
+                        .mapIndexed { i, instruction -> "${i + 1}) $instruction" }
+                        .joinToString("\n \n")
+
                 }
                 .onFailure {
-                    recipeText.visibility = View.VISIBLE
-                    recipeText.text = it.message
+                    Toast.makeText(this@RecipeActivity, "Erreur : $it", Toast.LENGTH_LONG).show()
                     Log.e("RecipeActivity", "Error generating recipe: ${it.message}", it)
                 }
         }
