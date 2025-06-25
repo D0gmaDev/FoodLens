@@ -9,12 +9,14 @@ import com.vuzix.sdk.speechrecognitionservice.VuzixSpeechClient
 import fr.foodlens.ActivityIntent
 import fr.foodlens.MainActivity
 import fr.foodlens.RecetteActivity
+import android.util.Log
 
 open class GlobalVoiceCmdReceiver (
     private val activity: ActionMenuActivity,
 ) : BroadcastReceiver(){
     override fun onReceive(context: Context?, intent: Intent?) {
         val phrase = intent?.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA)?:return
+        Log.d("global_receiver","phrase reçue: $phrase")
         when (phrase.lowercase()){
             BasicVocabulary.SCAN->{
                 startActivity(ActivityIntent::class.java)
