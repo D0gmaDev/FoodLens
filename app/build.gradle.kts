@@ -45,6 +45,14 @@ dependencies {
     implementation("com.vuzix:hud-actionmenu:2.9.1")
     implementation("com.vuzix:sdk-barcode:1.72")
     implementation("com.vuzix:sdk-speechrecognitionservice:1.97.1")
+
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.retrofit)
+    implementation(libs.converter.moshi)
+
+    implementation(libs.logging.interceptor)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
