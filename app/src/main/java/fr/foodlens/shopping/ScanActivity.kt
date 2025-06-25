@@ -115,8 +115,6 @@ class ScanActivity : AppCompatActivity(), PermissionsFragment.Listener {
         Log.d("ScanActivity", "onScanFragmentScanResult: $results results found")
         scanInstructionsView.text = "Scanning..."
         lifecycleScope.launch {
-            val listitems = AppDatabase.getDatabase(this@ScanActivity).shoppingListItemDao().getItemsForList(listId)
-            Log.d("ScanActivity", "List items: $listitems")
             val itemId = results[0]?.text
             if (itemId == null) {
                 scanInstructionsView.text = "Invalid barcode scanned."
