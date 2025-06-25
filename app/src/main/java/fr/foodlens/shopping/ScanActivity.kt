@@ -43,9 +43,6 @@ class ScanActivity : AppCompatActivity(), PermissionsFragment.Listener {
 
         listId = intent.getLongExtra("listId", -1)
 
-        Log.d("ScanActivity", "Received listId: $listId")
-        Log.d("ScanActivity", "Intent extras: ${intent.extras}")
-
         if (listId == -1L) {
             Toast.makeText(this, "No list ID provided", Toast.LENGTH_SHORT).show() // Should not happen
             finish()
@@ -113,11 +110,11 @@ class ScanActivity : AppCompatActivity(), PermissionsFragment.Listener {
         val scannerFragment = fragmentManager.findFragmentById(R.id.fragment_container) as ScannerFragment
         scannerFragment.setListener2(null)
         Log.d("ScanActivity", "onScanFragmentScanResult: $results results found")
-        scanInstructionsView.text = "Scanning..."
+        scanInstructionsView.text = getString(R.string.scanning)
         lifecycleScope.launch {
             val itemId = results[0]?.text
             if (itemId == null) {
-                scanInstructionsView.text = "Invalid barcode scanned."
+                scanInstructionsView.text = getString(R.string.invalid_barcode_scanned)
                 delay(3000)
                 scannerFragment.setListener2(mScannerListener)
                 resetInstructions()
@@ -127,14 +124,14 @@ class ScanActivity : AppCompatActivity(), PermissionsFragment.Listener {
             val itemDao = db.shoppingListItemDao()
             val itemList = itemDao.getItemById(itemId, listId)
             if (itemList == null) {
-                scanInstructionsView.text = "Item not found in the list."
+                scanInstructionsView.text = getString(R.string.item_not_found_in_the_list)
                 delay(3000)
                 scannerFragment.setListener2(mScannerListener)
                 resetInstructions()
                 return@launch
             }
             if (itemList.checked) {
-                scanInstructionsView.text = "Item already registered."
+                scanInstructionsView.text = getString(R.string.item_already_registered)
                 delay(3000)
                 scannerFragment.setListener2(mScannerListener)
                 resetInstructions()
@@ -143,25 +140,23 @@ class ScanActivity : AppCompatActivity(), PermissionsFragment.Listener {
             val updateJob = async { itemDao.updateItemCheckStatus(listId = listId, itemId = itemList.id, isChecked = true) }
             val insertJob = async { db.fridgeItemDao().insert(FridgeItemEntity(code = itemList.id, label = itemList.label, quantity = itemList.quantity)) }
             listOf(updateJob, insertJob).awaitAll()
-            scanInstructionsView.text = "Item registered!"
+            scanInstructionsView.text = getString(R.string.item_registered)
             delay(3000)
             scannerFragment.setListener2(mScannerListener)
             resetInstructions()
         }
     }
 
-
-
     private fun onScanFragmentError() {
         lifecycleScope.launch {
-            scanInstructionsView.text = "Unable to scan, please try again."
+            scanInstructionsView.text = getString(R.string.unable_to_scan_please_try_again)
             delay(5000)
             resetInstructions()
         }
     }
 
     fun resetInstructions() {
-        scanInstructionsView.text = "Point the camera at a barcode to scan it."
+        scanInstructionsView.text = getString(R.string.point_the_camera_at_a_barcode_to_scan_it)
         scanInstructionsView.visibility = View.VISIBLE
     }
 

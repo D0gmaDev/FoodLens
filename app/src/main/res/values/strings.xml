@@ -6,4 +6,11 @@
     <string name="delete_item">Delete Item</string>
     <string name="scan_failed_or_cancelled">Scan failed or cancelled</string>
     <string name="delete">Supprimer</string>
+    <string name="scanning">Scanning...</string>
+    <string name="invalid_barcode_scanned">Invalid barcode scanned.</string>
+    <string name="item_not_found_in_the_list">Item not found in the list.</string>
+    <string name="item_already_registered">Item already registered.</string>
+    <string name="item_registered">Item registered!</string>
+    <string name="unable_to_scan_please_try_again">Unable to scan, please try again.</string>
+    <string name="point_the_camera_at_a_barcode_to_scan_it">Point the camera at a barcode to scan it.</string>
 </resources>
