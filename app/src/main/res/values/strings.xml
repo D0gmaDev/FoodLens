@@ -5,4 +5,5 @@
     <string name="recipe_mode">Mode Recette</string>
     <string name="fridge_mode">Mon Frigidaire</string>
     <string name="loading_recipe">Votre chef cuisine...</string>
+    <string name="titre_de_la_recette">titre de la recette</string>
 </resources>
