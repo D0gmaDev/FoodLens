@@ -3,4 +3,23 @@
     <string name="welcome_back">Welcome back on FoodLens!</string>
     <string name="fill_from_barcode"> Scan le  code bar </string>
     <string name="resultat_du_scan">Resultat du scan</string>
+    <string name="import_shopping_list">Import shopping list</string>
+    <string name="continue_shopping">Continue shopping</string>
+    <string name="delete_item">Delete Item</string>
+    <string name="scan_failed_or_cancelled">Scan failed or cancelled</string>
+    <string name="delete">Supprimer</string>
+    <string name="scanning">Scanning...</string>
+    <string name="invalid_barcode_scanned">Invalid barcode scanned.</string>
+    <string name="item_not_found_in_the_list">Item not found in the list.</string>
+    <string name="item_already_registered">Item already registered.</string>
+    <string name="item_registered">Item registered!</string>
+    <string name="unable_to_scan_please_try_again">Unable to scan, please try again.</string>
+    <string name="point_the_camera_at_a_barcode_to_scan_it">Point the camera at a barcode to scan it.</string>
+    <string name="shopping_mode">Mode Courses</string>
+    <string name="recipe_mode">Mode Recette</string>
+    <string name="fridge_mode">Mon Frigidaire</string>
+    <string name="loading_recipe">Votre chef cuisine...</string>
+    <string name="titre_de_la_recette">titre de la recette</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
 </resources>
